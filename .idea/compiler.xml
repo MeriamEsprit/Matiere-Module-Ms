@@ -9,18 +9,28 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="shared" />
+        <module name="EdgeMicroServices" />
+        <module name="MS-Matiere-Command" />
+        <module name="MS-Matiere-Query" />
         <module name="module-ms" />
         <module name="matiere-ms" />
-        <module name="Gateaway" />
-        <module name="EdgeMicroServices" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Gateaway" target="17" />
+      <module name="GatewayService" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="EdgeMicroServices" options="-parameters" />
       <module name="Gateaway" options="-parameters" />
+      <module name="GatewayService" options="-parameters" />
+      <module name="MS-Matiere-Command" options="-parameters" />
+      <module name="MS-Matiere-Query" options="-parameters" />
       <module name="config-server" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="matiere-ms" options="-parameters" />
       <module name="module-ms" options="-parameters" />
       <module name="shared" options="-parameters" />

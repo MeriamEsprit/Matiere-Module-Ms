@@ -10,11 +10,14 @@
 
     <modules>
         <module>shared</module>
-        <module>config-server</module>
         <module>EdgeMicroServices</module>
-        <module>Gateaway</module>
+        <module>config-server</module>
+        <module>gateway</module>
         <module>matiere-ms</module>
         <module>module-ms</module>
+        <module>Spring-CQRS-Kafka-Sample-main/MS-Matiere-Command</module>
+        <module>Spring-CQRS-Kafka-Sample-main/MS-Matiere-Query</module>
+
     </modules>
 
     <properties>

@@ -3,10 +3,13 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/EdgeMicroServices/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/EdgeMicroServices/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Gateaway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Gateaway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/GatewayService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spring-CQRS-Kafka-Sample-main/MS-Matiere-Command/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Spring-CQRS-Kafka-Sample-main/MS-Matiere-Query/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matiere-ms/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matiere-ms/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module-ms/src/main/java" charset="UTF-8" />

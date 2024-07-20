@@ -1,19 +1,23 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  config-server:
-    build:
-      context: ./config-server
-      dockerfile: Dockerfile
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: module
     ports:
-      - "8888:8888"
+      - "3306:3306"
     networks:
       - my-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 6
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - my-network
 
   eureka-server:
     build:
@@ -23,23 +27,34 @@ services:
       - "8761:8761"
     networks:
       - my-network
+
+  config-server:
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - my-network
     depends_on:
-      config-server:
-        condition: service_healthy
-    entrypoint: ["bash", "./wait-for-it.sh", "config-server", "8888", "--", "java", "-jar", "EdgeMicroServices.jar"]
+      - eureka-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
 
   gateway:
     build:
-      context: ./Gateaway
+      context: ./gateway
       dockerfile: Dockerfile
     ports:
       - "9012:9012"
     networks:
       - my-network
     depends_on:
-      eureka-server:
-        condition: service_healthy
-    entrypoint: ["bash", "./wait-for-it.sh", "eureka-server", "8761", "--", "java", "-jar", "Gateaway.jar"]
+      - config-server
+      - eureka-server
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
 
   matiere-ms:
     build:
@@ -50,9 +65,14 @@ services:
     networks:
       - my-network
     depends_on:
-      gateway:
-        condition: service_healthy
-    entrypoint: ["bash", "./wait-for-it.sh", "gateway", "9012", "--", "java", "-jar", "matiere-ms.jar"]
+      - gateway
+      - config-server
+      - eureka-server
+      - mongodb
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/matiere
 
   module-ms:
     build:
@@ -63,9 +83,16 @@ services:
     networks:
       - my-network
     depends_on:
-      gateway:
-        condition: service_healthy
-    entrypoint: ["bash", "./wait-for-it.sh", "gateway", "9012", "--", "java", "-jar", "module-ms.jar"]
+      - gateway
+      - config-server
+      - eureka-server
+      - mysql
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/module?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
 
 networks:
   my-network:

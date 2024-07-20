@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/EdgeMicroServices" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Gateaway" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/config-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/matiere-ms" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/module-ms" vcs="Git" />
